@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require "varnish_statsd"
 
 if not ARGV[0]
