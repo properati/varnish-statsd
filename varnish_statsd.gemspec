@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "varnish-statsd/version"
+require "varnish_statsd/version"
 
 Gem::Specification.new do |s|
-  s.name        = "varnish-statsd"
+  s.name        = "varnish_statsd"
   s.version     = Varnish::Statsd::VERSION
   s.authors     = ["Martin Sarsale"]
   s.email       = ["martin@sumavisos.com"]
