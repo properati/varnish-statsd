@@ -53,7 +53,7 @@ module VarnishStatsd
           debug("TxStatus: ",txstatus)
         end
         if req['headers']["X-Cache"]
-          cache = req['headers']["X-Cache"].first
+          cache = req['headers']["X-Cache"]
           @statsd.increment("varnish.cache.#{cache}",1)
           debug("X-Cache: ",cache)
         end
