@@ -1,0 +1,28 @@
+GIT
+  remote: git@github.com:runa/varnish-rb.git
+  revision: d5b5fb3a12af5c196678c7c359897417791158aa
+  specs:
+    varnish-rb (0.0.1)
+      ffi
+
+PATH
+  remote: .
+  specs:
+    varnish-statsd (0.0.1)
+      eventmachine
+      statsd-ruby
+      varnish-rb
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    eventmachine (0.12.10)
+    ffi (1.0.11)
+    statsd-ruby (0.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  varnish-rb!
+  varnish-statsd!
