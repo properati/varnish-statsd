@@ -57,8 +57,8 @@ module VarnishStatsd
           @statsd.increment("varnish.TxStatus.#{txstatus}",0.5)
           debug("TxStatus: ",txstatus)
         end
-        if req['headers']["X-Cache"]
-          cache = req['headers']["X-Cache"]
+        cache = req['headers']["X-Cache"]
+        if cache
           @statsd.increment("varnish.cache.#{cache}",0.5)
           debug("X-Cache: ",cache)
         end
@@ -75,6 +75,8 @@ module VarnishStatsd
           if txstatus > 0
             @statsd.increment("varnish.bots.TxStatus.#{txstatus}",0.5)
             debug("Bot TxStatus: ",txstatus)
+            @statsd.increment("varnish.bots.cache.#{cache}",0.5)
+            debug("Bot Req Cache: ",txstatus)
           end
 
         end
