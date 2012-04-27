@@ -68,9 +68,15 @@ module VarnishStatsd
             debug("LRU ")
           end
         end
-        if req['headers']['From'] =~ /bingbot|googlebot/
-            @statsd.increment("varnish.bots.#{req['headers']['From'].gsub('.','')}",0.5)
-            debug("Bot")
+        bot = req['headers']['From'] =~ /bingbot|googlebot/
+        if bot
+          @statsd.increment("varnish.bots.#{req['headers']['From'].gsub('.','')}",0.5)
+          debug("Bot")
+          if txstatus > 0
+            @statsd.increment("varnish.bots.TxStatus.#{txstatus}",0.5)
+            debug("Bot TxStatus: ",txstatus)
+          end
+
         end
 
       end
