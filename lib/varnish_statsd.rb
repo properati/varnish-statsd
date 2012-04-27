@@ -69,7 +69,7 @@ module VarnishStatsd
           end
         end
         if req['headers']['From'] =~ /bingbot|googlebot/
-            @statsd.increment("varnish.bots.#{req['headers']['From']}",0.5)
+            @statsd.increment("varnish.bots.#{req['headers']['From'].gsub('.','')}",0.5)
             debug("Bot")
         end
 
