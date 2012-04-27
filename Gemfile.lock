@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    varnish_statsd (0.0.1)
+    varnish_statsd (0.0.2)
       eventmachine
       statsd-ruby
       varnish-rb

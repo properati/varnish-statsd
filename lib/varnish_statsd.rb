@@ -24,7 +24,7 @@ module VarnishStatsd
       @count += 1
       data = data_pointer.get_string(0,len)
       @reqs[id][tag] << data
-      if tag == :reqend
+      if tag == :reqend || id == 0
         req = @reqs[id]
         req['headers'] = parse_headers(req[:txheader])
         req_end(req)
@@ -54,14 +54,25 @@ module VarnishStatsd
       def req_end(req)
         txstatus = req[:txstatus].first.to_i
         if txstatus > 0
-          @statsd.increment("varnish.TxStatus.#{txstatus}",1)
+          @statsd.increment("varnish.TxStatus.#{txstatus}",1,0.5)
           debug("TxStatus: ",txstatus)
         end
         if req['headers']["X-Cache"]
           cache = req['headers']["X-Cache"]
-          @statsd.increment("varnish.cache.#{cache}",1)
+          @statsd.increment("varnish.cache.#{cache}",1,0.5)
           debug("X-Cache: ",cache)
         end
+        if req[:expkill]
+          if req[:expkill] =~ /LRU/
+            @statsd.increment("varnish.ExpKill.LRU",1,0.5)
+            debug("LRU ")
+          end
+        end
+        if req['headers']['From'] =~ /bingbot|googlebot/
+            @statsd.increment("varnish.bots.#{req['headers']['From']}",1,0.5)
+            debug("Bot")
+        end
+
       end
   end
 end
