@@ -36,7 +36,12 @@ module VarnishStatsd
       raise "#req_end: Override me!" 
     end
     def parse_headers(headers)
-      Hash[*headers.map{|h| h.split(": ",2)}.flatten]
+      begin
+        Hash[*headers.map{|h| h.split(": ",2)}.flatten]
+      rescue
+        debug("Error parsing headers: #{headers.inspect}")
+        {}
+      end
     end
   end
 
