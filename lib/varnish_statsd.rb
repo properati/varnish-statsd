@@ -54,22 +54,22 @@ module VarnishStatsd
       def req_end(req)
         txstatus = req[:txstatus].first.to_i
         if txstatus > 0
-          @statsd.increment("varnish.TxStatus.#{txstatus}",1,0.5)
+          @statsd.increment("varnish.TxStatus.#{txstatus}",0.5)
           debug("TxStatus: ",txstatus)
         end
         if req['headers']["X-Cache"]
           cache = req['headers']["X-Cache"]
-          @statsd.increment("varnish.cache.#{cache}",1,0.5)
+          @statsd.increment("varnish.cache.#{cache}",0.5)
           debug("X-Cache: ",cache)
         end
         if req[:expkill]
           if req[:expkill] =~ /LRU/
-            @statsd.increment("varnish.ExpKill.LRU",1,0.5)
+            @statsd.increment("varnish.ExpKill.LRU",0.5)
             debug("LRU ")
           end
         end
         if req['headers']['From'] =~ /bingbot|googlebot/
-            @statsd.increment("varnish.bots.#{req['headers']['From']}",1,0.5)
+            @statsd.increment("varnish.bots.#{req['headers']['From']}",0.5)
             debug("Bot")
         end
 
